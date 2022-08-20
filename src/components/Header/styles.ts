@@ -14,6 +14,7 @@ export const  HeaderContainer = styled.header`
         height: 5rem;
 
         background-color: ${({theme})=> theme['green-500']};
+        color: ${({theme})=> theme.white};
 
         border:none;
         border-radius: 6px;
