@@ -1,34 +1,34 @@
 import * as S from './HomeStyles'
 import { SeachForm } from "../components/SearchForm";
 import { Summary } from "../components/Summary";
+import { useContext } from 'react';
+import { TransactionsContext } from '../Contexts/TransactionsContext';
+import { dateFormatter, priceFormatter } from '../utils/Formatter';
 
 export default function Home(){
+  const {transactions} = useContext(TransactionsContext)
+
   return(
     <>
       <Summary />
       <SeachForm />
       <S.TransactionsTable>
         <tbody>
-          <S.TransactionRow>
-                        <td>Desenvolvimento de site</td>
+          {transactions.map(({id,description,value,type,category,createdAt} )=>{
+            return(
+              <S.TransactionRow key={id}>
+                        <td>{description}</td>
                         <td>
-                            <S.PriceHighLight variant="income">
-                                R$ 12.000.00
+                            <S.PriceHighLight variant={type}>
+                                {priceFormatter.format(value)}
                             </S.PriceHighLight>
                         </td>
-                        <td>Trabalho</td>
-                        <td>13/04/2022</td>
+                        <td>{category}</td>
+                        <td>{dateFormatter.format(new Date(createdAt))}</td>
             </S.TransactionRow>
-            <S.TransactionRow>
-                        <td>Hamburger</td>
-                        <td>
-                            <S.PriceHighLight variant="outcome">
-                                -R$ 50.00
-                            </S.PriceHighLight>
-                        </td>
-                        <td>Alimentação</td>
-                        <td>13/04/2022</td>
-            </S.TransactionRow>
+            )
+          })}
+          
           </tbody>
       </S.TransactionsTable>
     </>
