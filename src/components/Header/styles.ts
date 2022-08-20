@@ -1,14 +1,20 @@
 import styled from 'styled-components'
 
 export const  HeaderContainer = styled.header`
+    height: 21.2rem;
+    padding-top: 4rem;
+
+    background-color: ${({theme})=> theme['gray-700']};
+`
+
+export const HeaderContent = styled.div`
     display: flex;
     justify-content: space-between;
 
-    height: 21.2rem;
-    padding: 4rem 16rem 0 16rem;
+    width: 100%;
+    max-width: 1120px;
+    margin: 0 auto;
 
-    background-color: ${({theme})=> theme['gray-700']};
-    
     button{
         width: 15.2rem;
         height: 5rem;

@@ -6,9 +6,11 @@ export const SummaryContainer = styled.div`
     gap:3.2rem;
 
     height: 21.2rem;
-    padding: 0 16rem 0 16rem;
+    width: 100%;
+    max-width: 1120px;
 
-    margin-top: -6.85rem;
+    margin: -6.85rem auto 0 auto;
+
 `
 
 export const SummaryItem = styled.div`
