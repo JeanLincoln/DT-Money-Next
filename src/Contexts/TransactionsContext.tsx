@@ -25,7 +25,7 @@ export function TransactionsContextProvider({children}:CyclesContextProviderProp
             {
                 id:'1',
                 description: 'Desenvolvimento de site',
-                value: 12.000,
+                value: 12000,
                 type: 'income',
                 category: 'Trabalho',
                 createdAt: "2022-07-29T19:30:44.505Z",

@@ -26,6 +26,10 @@ export const SummaryItem = styled.div`
 
     border-radius: 6px;
 
+    &:last-child{
+        background-color: ${({theme})=> theme['green-500']};
+    }
+
     header {
         display: flex;
         justify-content: space-between;
