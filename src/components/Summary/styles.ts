@@ -5,7 +5,6 @@ export const SummaryContainer = styled.div`
     justify-content: space-between;
     gap:3.2rem;
 
-    height: 21.2rem;
     width: 100%;
     max-width: 1120px;
 
