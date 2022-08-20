@@ -2,7 +2,7 @@ import * as S from './styles'
 import { SeachForm } from "../../components/SearchForm";
 import { Summary } from "../../components/Summary";
 import { useContext } from 'react';
-import { TransactionsContext } from '../../Contexts/TransactionsContext';
+import { TransactionsContext } from '../../contexts/TransactionsContext';
 import { dateFormatter, priceFormatter } from '../../utils/Formatter';
 
 export default function Home(){
