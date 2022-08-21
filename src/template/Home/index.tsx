@@ -15,6 +15,7 @@ export default function Home(){
       <S.TransactionsTable>
         <tbody>
           {transactions.map(({id,description,value,type,category,createdAt} )=>{
+            console.log({id,description,value,type,category,createdAt} )
             return(
               <S.TransactionRow key={id}>
                         <td>{description}</td>

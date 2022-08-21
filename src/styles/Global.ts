@@ -22,7 +22,7 @@ export const GlobalStyle = createGlobalStyle`
         -webkit-font-smoothing:antialiased;
     }
 
-    border-style, input, textarea, button ,strong, span, td{
+    border-style, input, textarea, button ,strong, span, td, h2{
         font-family: 'Roboto', sans-serif;
         font-weight: 400;
     }

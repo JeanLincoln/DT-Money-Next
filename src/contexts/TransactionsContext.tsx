@@ -9,8 +9,16 @@ type Transaction = {
     createdAt: string,
 }
 
+type NewTransaction = {
+    description: string,
+    value: number,
+    type: 'income' | 'outcome',
+    category: string,
+}
+
 type TransactionsContextType = {
-    transactions:Transaction[]
+    transactions:Transaction[],
+    createNewTransactions:(transaction:NewTransaction) => void
 }
 
 type CyclesContextProviderProps = {
@@ -43,8 +51,21 @@ export function TransactionsContextProvider({children}:CyclesContextProviderProp
         ]
         )
 
+    function createNewTransactions(transaction:NewTransaction){
+        const {description, value, category, type} = transaction
+        const newTransaction = {
+            id:String(new Date()),
+            description:description,
+            value:value,
+            category:category,
+            type:type,
+            createdAt:String(new Date()),
+        }
+        setTransactions( state => [newTransaction, ...state])
+    }
+
     return(
-        <TransactionsContext.Provider value={{transactions}}>
+        <TransactionsContext.Provider value={{transactions,createNewTransactions}}>
             {children}
         </TransactionsContext.Provider>
     )
