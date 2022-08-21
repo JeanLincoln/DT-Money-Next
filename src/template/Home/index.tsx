@@ -21,6 +21,7 @@ export default function Home(){
                         <td>{description}</td>
                         <td>
                             <S.PriceHighLight variant={type}>
+                              {type === 'outcome' && '- '}
                                 {priceFormatter.format(value)}
                             </S.PriceHighLight>
                         </td>
