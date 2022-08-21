@@ -7,6 +7,10 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { TransactionsContext } from "../../contexts/TransactionsContext";
 import { Content, Overlay, RadioItem, RadioRoot, Title, SetNewTransaction } from "./styles";
 
+type closeModalProps = {
+    onOpenChange : (closeIt:boolean) => void
+}
+
 const NewTransactionSchema = z.object({
     description: z.string(),
     value: z.number(),
@@ -17,7 +21,7 @@ const NewTransactionSchema = z.object({
 
 type NewTransactionFormInputs = z.infer<typeof NewTransactionSchema>
 
-export function NewTransactionForm(){
+export function NewTransactionForm(props:closeModalProps){
     const {createNewTransactions} = useContext(TransactionsContext)
     const {register , control, handleSubmit, reset} = useForm<NewTransactionFormInputs>({
         resolver: zodResolver(NewTransactionSchema),
@@ -32,6 +36,7 @@ export function NewTransactionForm(){
         const {description, value, category, type} = data
         createNewTransactions({description, value, category, type})
         reset()
+        props.onOpenChange(false)
     }
 
     return(
