@@ -20,6 +20,7 @@ type NewTransaction = {
 type TransactionsContextType = {
     transactions:Transaction[],
     createNewTransactions:(transaction:NewTransaction) => void
+    fetchTransactions: (query?: string) => void
 }
 
 type CyclesContextProviderProps = {
@@ -44,8 +45,14 @@ export function TransactionsContextProvider({children}:CyclesContextProviderProp
         setTransactions( state => [response.data, ...state])
     }
 
-    async function fetchTransactions(){
-        const response = await api.get('transactions')
+    async function fetchTransactions(query?:string){
+        const response = await api.get('transactions',{
+            params:{
+                _sort:'createdAt',
+                _order: 'desc',
+                q:query
+            }
+        })
         setTransactions(response.data)
     }
 
@@ -53,8 +60,14 @@ export function TransactionsContextProvider({children}:CyclesContextProviderProp
         fetchTransactions()
     } ,[])
 
+    const values = {
+        transactions,
+        createNewTransactions,
+        fetchTransactions
+    }
+
     return(
-        <TransactionsContext.Provider value={{transactions,createNewTransactions}}>
+        <TransactionsContext.Provider value={values}>
             {children}
         </TransactionsContext.Provider>
     )

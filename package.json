@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "dev:server": "json-server server.json -p 3333 -w -d 500",
+    "lint:fix": "eslint src --ext .tsx,.ts --fix",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
