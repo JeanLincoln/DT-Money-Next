@@ -21,6 +21,7 @@ type TransactionsContextType = {
     transactions:Transaction[],
     createNewTransactions:(transaction:NewTransaction) => void
     fetchTransactions: (query?: string) => void
+    deleteTransactions: (transactionToDelete:string) => void
 }
 
 type CyclesContextProviderProps = {
@@ -31,7 +32,6 @@ export const TransactionsContext = createContext({} as TransactionsContextType)
 
 export function TransactionsContextProvider({children}:CyclesContextProviderProps){
     const [transactions, setTransactions] = useState<Transaction[]>([])
-    console.log(transactions)
 
     async function createNewTransactions(transaction:NewTransaction){
         const {description, value, category, type} = transaction
@@ -56,6 +56,15 @@ export function TransactionsContextProvider({children}:CyclesContextProviderProp
         setTransactions(response.data)
     }
 
+    async function deleteTransactions(transactionToDelete:string){
+        const response = await api.delete(`transactions/${transactionToDelete}`)
+
+        const transactionsLeft = 
+            transactions.filter(transaction => 
+                    transaction.id !== transactionToDelete)
+        setTransactions(transactionsLeft)
+    }
+
     useEffect(()=> {
         fetchTransactions()
     } ,[])
@@ -63,7 +72,8 @@ export function TransactionsContextProvider({children}:CyclesContextProviderProp
     const values = {
         transactions,
         createNewTransactions,
-        fetchTransactions
+        fetchTransactions,
+        deleteTransactions
     }
 
     return(
