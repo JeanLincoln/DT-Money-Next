@@ -31,6 +31,18 @@ export const TransactionRow = styled.tr`
         &:first-child {
             flex:3; 
         }
+
+        button{
+            cursor: pointer;
+            background-color:transparent;
+            border:none;
+            color:${({theme}) => theme['gray-300']};
+
+            &:hover{
+                transition: color 0.3s;
+                color: ${({theme}) => theme['red-400']};
+            }
+        }
     }
 `
 
