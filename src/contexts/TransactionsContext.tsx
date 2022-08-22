@@ -1,4 +1,5 @@
-import { createContext, ReactNode, useState } from 'react'
+import { createContext, ReactNode, useEffect, useState } from 'react'
+import { api } from '../../axios'
 
 type Transaction = {
     id: string,
@@ -28,28 +29,8 @@ type CyclesContextProviderProps = {
 export const TransactionsContext = createContext({} as TransactionsContextType)
 
 export function TransactionsContextProvider({children}:CyclesContextProviderProps){
-    const [transactions, setTransactions] = useState<Transaction[]>(
-        [
-            {
-                id:'1',
-                description: 'Desenvolvimento de site',
-                value: 12000,
-                type: 'income',
-                category: 'Trabalho',
-                createdAt: "2022-07-29T19:30:44.505Z",
-                
-            },
-            {
-                id:'2',
-                description: 'Hamburguer',
-                value: 50,
-                type: 'outcome',
-                category: 'Alimentação',
-                createdAt: "2022-07-29T19:36:44.505Z",
-                
-            }
-        ]
-        )
+    const [transactions, setTransactions] = useState<Transaction[]>([])
+    console.log(transactions)
 
     function createNewTransactions(transaction:NewTransaction){
         const {description, value, category, type} = transaction
@@ -63,6 +44,15 @@ export function TransactionsContextProvider({children}:CyclesContextProviderProp
         }
         setTransactions( state => [newTransaction, ...state])
     }
+
+    async function fetchTransactions(){
+        const response = await api.get('transactions')
+        setTransactions(response.data)
+    }
+
+    useEffect(()=> {
+        fetchTransactions()
+    } ,[])
 
     return(
         <TransactionsContext.Provider value={{transactions,createNewTransactions}}>
