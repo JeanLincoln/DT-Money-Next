@@ -32,17 +32,16 @@ export function TransactionsContextProvider({children}:CyclesContextProviderProp
     const [transactions, setTransactions] = useState<Transaction[]>([])
     console.log(transactions)
 
-    function createNewTransactions(transaction:NewTransaction){
+    async function createNewTransactions(transaction:NewTransaction){
         const {description, value, category, type} = transaction
-        const newTransaction = {
-            id:String(new Date()),
+        const response = await api.post('transactions',{
             description:description,
             value:value,
             category:category,
             type:type,
-            createdAt:String(new Date()),
-        }
-        setTransactions( state => [newTransaction, ...state])
+            createdAt:new Date(),
+        })
+        setTransactions( state => [response.data, ...state])
     }
 
     async function fetchTransactions(){
